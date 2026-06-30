@@ -1,0 +1,201 @@
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>yeng gacor</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+.logo img {
+     height: 100px;
+     width: auto;
+}
+
+body{
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    color:white;
+}
+
+.container{
+    width:360px;
+    background:#111;
+    border-radius:20px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 0 30px red;
+}
+
+h1{
+    color:blue;
+    margin-bottom:15px;
+}
+
+.balance{
+    font-size:22px;
+    margin-bottom:15px;
+}
+
+.slot{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin:20px 0;
+}
+
+.reel{
+    width:110px;
+    height:110px;
+    background:#fff;
+    color:#000;
+    border-radius:15px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:45px;
+    font-weight:bold;
+}
+
+button{
+    padding:12px 30px;
+    font-size:18px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    background:gold;
+    font-weight:bold;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+.msg{
+    margin-top:20px;
+    font-size:20px;
+    min-height:25px;
+}
+
+.icon{
+    width:65px;
+    height:65px;
+    object-fit:contain;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+                <img src="Logo.jpg" alt="Logo yeng gacor">
+            </div>
+
+<h1>yeng gacor</h1>
+
+<div class="balance">
+Saldo : Rp <span id="money">10000</span>
+</div>
+
+<div class="slot">
+<div class="reel" id="r1">🎰</div>
+<div class="reel" id="r2">🎰</div>
+<div class="reel" id="r3">🎰</div>
+</div>
+
+<button onclick="spin()">SPIN (100)</button>
+
+<div class="msg" id="msg"></div>
+
+</div>
+
+<script>
+
+const simbol = [
+"Naga.jpg",
+"Kakek merah.jpg",
+"Titan.jpg",
+"Kerbau.jpg",
+"Buldung.jpg",
+"Bebek.jpg",
+"Alien.jpg"
+];
+
+let uang = 10000;
+
+function randomSimbol(){
+    return simbol[Math.floor(Math.random() * simbol.length)];
+}
+
+function spin(){
+    if(uang < 50){
+        document.getElementById("msg").innerHTML = "❌ Saldo habis!";
+        return;
+    }
+
+    uang -= 100;
+    document.getElementById("money").innerHTML = uang;
+    document.getElementById("msg").innerHTML = "";
+
+    let i = 0;
+
+    let animasi = setInterval(() => {
+        // ANIMASI REEL
+        document.getElementById("r1").innerHTML = `<img src="${randomSimbol()}" class="icon">`;
+        document.getElementById("r2").innerHTML = `<img src="${randomSimbol()}" class="icon">`;
+        document.getElementById("r3").innerHTML = `<img src="${randomSimbol()}" class="icon">`;
+
+        i++;
+
+        if(i > 20){
+            clearInterval(animasi);
+
+            // HASIL AKHIR
+            let a = randomSimbol();
+            let b = randomSimbol();
+            let c = randomSimbol();
+
+            document.getElementById("r1").innerHTML = `<img src="${a}" class="icon">`;
+            document.getElementById("r2").innerHTML = `<img src="${b}" class="icon">`;
+            document.getElementById("r3").innerHTML = `<img src="${c}" class="icon">`;
+
+            let hadiah = 0;
+
+            // CEK MENANG
+            if(a == b && b == c){
+                if(a == "Naga.jpg"){
+                    hadiah = 9000;
+                } else if(a == "Kakek merah.jpg"){
+                    hadiah = 7000;
+                } else if(a == "Titan.jpg"){
+                    hadiah = 500;
+                } else {
+                    hadiah = 200;
+                }
+                
+                uang += hadiah;
+                document.getElementById("msg").innerHTML = "🎉 JACKPOT! +Rp " + hadiah;
+            } else {
+                document.getElementById("msg").innerHTML="😭😭poke😭😭";
+            }
+
+            document.getElementById("money").innerHTML = uang;
+        }
+
+    }, 100);
+}
+
+</script>
+
+</body>
+</html>
